@@ -3,22 +3,26 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public InputField inputField;
+
+    
+    public class UserName{
+        public static string userName = "";
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    
+
+    private void Start() {
+        DontDestroyOnLoad(gameObject);
     }
 
     public void StartGame(){
+        UserName.userName = inputField.text; 
+
         SceneManager.LoadScene(1);
     }
 

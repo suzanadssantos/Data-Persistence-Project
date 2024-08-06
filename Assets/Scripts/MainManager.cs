@@ -12,16 +12,22 @@ public class MainManager : MonoBehaviour
 
     public Text ScoreText;
     public GameObject GameOverText;
+    public Text newScoreText;
     
     private bool m_Started = false;
-    private int m_Points;
+    public int m_Points;
     
     private bool m_GameOver = false;
 
+    public class UserScore{
+        public static int userScore;
+    }
     
-    // Start is called before the first frame update
     void Start()
-    {
+    {   
+        ScoreText.text = $"Score : {m_Points}";
+        newScoreText.text = $"Best Score: {PlayerPrefs.GetString("HighScoreName", "N/A")} : {PlayerPrefs.GetInt("HighScore", 0)}";
+
         const float step = 0.6f;
         int perLine = Mathf.FloorToInt(4.0f / step);
         
@@ -72,5 +78,30 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+        ScoreText.text = $"{MenuManager.UserName.userName} : {m_Points}";
+        SaveUserData(MenuManager.UserName.userName, m_Points);
+        CheckHighScore(MenuManager.UserName.userName, m_Points);
+    }
+
+    void SaveUserData(string userName, int score){
+        PlayerPrefs.SetString("UserName", userName);
+        PlayerPrefs.SetInt("UserScore", score);
+        PlayerPrefs.Save();
+    }
+
+    void CheckHighScore(string userName, int score)
+    {
+        int highScore = PlayerPrefs.GetInt("HighScore", 0);
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.SetString("HighScoreName", userName);
+            PlayerPrefs.Save();
+            newScoreText.text = $"High Score: {userName} : {score}";
+        }
+    }
+
+    public void Menu(){
+        SceneManager.LoadScene(0);
     }
 }
