@@ -97,7 +97,7 @@ public class MainManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", score);
             PlayerPrefs.SetString("HighScoreName", userName);
             PlayerPrefs.Save();
-            newScoreText.text = $"High Score: {userName} : {score}";
+            newScoreText.text = $"Best Score: {userName} : {score}";
         }
     }
 

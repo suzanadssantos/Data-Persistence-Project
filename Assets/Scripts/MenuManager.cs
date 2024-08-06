@@ -9,12 +9,9 @@ public class MenuManager : MonoBehaviour
 {
     public InputField inputField;
 
-    
     public class UserName{
         public static string userName = "";
     }
-
-    
 
     private void Start() {
         DontDestroyOnLoad(gameObject);
